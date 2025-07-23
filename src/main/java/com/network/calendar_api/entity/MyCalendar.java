@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MyCalendar extends BaseEntity {
+public class MyCalendar{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,6 +20,5 @@ public class MyCalendar extends BaseEntity {
     private Integer day;
 
     private Integer year;
-
 
 }

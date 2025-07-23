@@ -4,6 +4,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+
 import java.time.LocalDate;
 
 @Entity
@@ -11,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Event extends BaseEntity {
+public class Event{
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
@@ -20,6 +22,14 @@ public class Event extends BaseEntity {
 
     private String description;
 
-    private LocalDate date;
+    @CreatedDate
+    private LocalDate time;
 
+    private String date;
+
+    public Event(String title, String description, String date) {
+        this.title = title;
+        this.description = description;
+        this.date = date;
+    }
 }

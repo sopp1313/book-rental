@@ -1,20 +1,19 @@
 package com.network.calendar_api.entity;
 
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.EntityListeners;
-import lombok.Data;
+import jakarta.persistence.MappedSuperclass;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-@Data
-public abstract class BaseEntity {
+public class BaseEntity {
     @CreatedDate
-    private LocalDateTime createdAt;
+    LocalDate create;
 
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    LocalDate update;
 }

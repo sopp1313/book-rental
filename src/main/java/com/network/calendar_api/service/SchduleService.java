@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.network.calendar_api.dto.EventRequestDto;
 import com.network.calendar_api.dto.MyCalenderDto;
+import com.network.calendar_api.entity.Event;
+import com.network.calendar_api.repository.EventRepository;
 import com.sun.jdi.request.EventRequest;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
@@ -18,13 +20,14 @@ import java.util.List;
 public class SchduleService {
     private RestTemplate restTemplate = new RestTemplate();
     private ObjectMapper objectMapper = new ObjectMapper();
+    private EventRepository eventRepository;
 
     public SchduleService() {
         this.restTemplate = new RestTemplate();
         this.objectMapper = new ObjectMapper();
     }
 
-    public List<EventRequestDto> scheduleEvent(int year){
+    public List<EventRequestDto> scheduleEvent(int year) {
         String url = "https://www.cau.ac.kr/ajax/FR_SCH_SVC/ScheduleListData.do";
         HttpHeaders headers = new HttpHeaders();
 
@@ -35,12 +38,12 @@ public class SchduleService {
         params.add("site_number", "2");
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+        List<EventRequestDto> result = new ArrayList<>();
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
             String json = response.getBody();
 
             JsonNode arrayNode = objectMapper.readTree(json);
-            List<EventRequestDto> result = new ArrayList<>();
 
             for (JsonNode item : arrayNode) {
                 String title = item.get("SUBJECT").asText();
@@ -60,13 +63,13 @@ public class SchduleService {
                 }
 
                 LocalDate localDate = LocalDate.parse(date);
-                EventRequestDto dto = new EventRequestDto(title, description, localDate);
-                result.add(dto);
-                return result;
+                Event event = new Event(title, description, date);
+                eventRepository.save(event);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("학사일정 불러오기 실패");
         }
-
+        return result;
     }
 }
+

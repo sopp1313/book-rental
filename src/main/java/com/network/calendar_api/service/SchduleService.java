@@ -6,11 +6,12 @@ import com.network.calendar_api.dto.EventRequestDto;
 import com.network.calendar_api.dto.MyCalenderDto;
 import com.network.calendar_api.entity.Event;
 import com.network.calendar_api.repository.EventRepository;
-import com.sun.jdi.request.EventRequest;
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,15 +19,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+// @Service 어노테이션 추가 및 의존성 주입으로 변경 - EventRepository null 방지
+@Service  
+@RequiredArgsConstructor
 public class SchduleService {
-    private RestTemplate restTemplate = new RestTemplate();
-    private ObjectMapper objectMapper = new ObjectMapper();
-    private EventRepository eventRepository;
-
-    public SchduleService() {
-        this.restTemplate = new RestTemplate();
-        this.objectMapper = new ObjectMapper();
-    }
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final EventRepository eventRepository;
 
     public List<EventRequestDto> scheduleEvent(int year) {
         String url = "https://www.cau.ac.kr/ajax/FR_SCH_SVC/ScheduleListData.do";
@@ -87,8 +86,9 @@ public class SchduleService {
                     }
                 }
                 else{
+                // String date를 LocalDate로 파싱하여 저장 - Entity 수정에 맞춰 타입 일치
                 LocalDate localDate = LocalDate.parse(date);
-                Event event = new Event(title, description, date);
+                Event event = new Event(title, description, localDate);
                 eventRepository.save(event);
             }}
         } catch (Exception e) {

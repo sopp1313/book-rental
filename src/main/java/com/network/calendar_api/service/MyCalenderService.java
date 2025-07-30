@@ -28,10 +28,12 @@ public class MyCalenderService {
         List<MyCalenderDto> result = new ArrayList<>();
         for(int day = 1; day<=end.getDayOfMonth(); day++) {
             LocalDate date = LocalDate.of(year, month, day);
+            // Event의 date가 LocalDate이라 toString()으로 변환하여 EventRequestDto에 전달
             List<EventRequestDto> eventList = groupp.getOrDefault(date, List.of()).stream()
-                    .map(e->new EventRequestDto(e.getTitle(), e.getDescription(), e.getDate()))
+                    .map(e->new EventRequestDto(e.getTitle(), e.getDescription(), e.getDate().toString()))
                     .collect(Collectors.toList());
-            result.add(new MyCalenderDto(year, month, day, eventList));
+            // MyCalenderDto 생성자 매개변수 순서 수정: month, day, year -> year, month, day로 일관성 유지
+            result.add(new MyCalenderDto(month, day, year, eventList));
         }
         return result;
     }

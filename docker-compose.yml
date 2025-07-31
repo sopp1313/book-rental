@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  calendar-api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    volumes:
+      - ./src:/app/src
+    command: ./gradlew bootRun --continuous

@@ -25,9 +25,10 @@ public class Event{
     @CreatedDate
     private LocalDate time;
 
-    private String date;
+    // date 필드가 String 타입이지만 서비스에서 LocalDate로 사용하려고 해서 타입 불일치(수정함)
+    private LocalDate date;
 
-    public Event(String title, String description, String date) {
+    public Event(String title, String description, LocalDate date) {
         this.title = title;
         this.description = description;
         this.date = date;

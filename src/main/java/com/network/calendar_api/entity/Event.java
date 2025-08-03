@@ -25,9 +25,9 @@ public class Event{
     @CreatedDate
     private LocalDate time;
 
-    private String date;
+    private LocalDate date;
 
-    public Event(String title, String description, String date) {
+    public Event(String title, String description, LocalDate date) {
         this.title = title;
         this.description = description;
         this.date = date;

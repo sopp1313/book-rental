@@ -8,9 +8,9 @@ import java.time.LocalDate;
 public class EventRequestDto {
     private String title;
     private String description;
-    private String date;
+    private LocalDate date;
 
-    public EventRequestDto(String title, String description, String date) {
+    public EventRequestDto(String title, String description, LocalDate date) {
         this.title = title;
         this.description = description;
         this.date = date;

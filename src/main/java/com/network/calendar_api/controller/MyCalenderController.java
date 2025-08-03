@@ -28,7 +28,7 @@ public class MyCalenderController {
 
     @GetMapping
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "성공적으로 캘린더조회함")
+            @ApiResponse(responseCode = "200", description = "성공적으로 캘린더조회함"),
             @ApiResponse(responseCode = "400", description = " 실패했다...")
     })
     public ResponseEntity<BaseResponse<List<MyCalenderDto>>> getMyCalender(@RequestParam int year, @RequestParam int Month){

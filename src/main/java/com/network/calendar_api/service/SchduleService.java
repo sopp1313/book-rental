@@ -8,6 +8,7 @@ import com.network.calendar_api.entity.Event;
 import com.network.calendar_api.repository.EventRepository;
 import com.sun.jdi.request.EventRequest;
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+@Service
 public class SchduleService {
     private RestTemplate restTemplate = new RestTemplate();
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -88,7 +90,7 @@ public class SchduleService {
                 }
                 else{
                 LocalDate localDate = LocalDate.parse(date);
-                Event event = new Event(title, description, date);
+                Event event = new Event(title, description, localDate);
                 eventRepository.save(event);
             }}
         } catch (Exception e) {

@@ -46,6 +46,7 @@ public class SchduleService {
         try {
             ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
             String json = response.getBody();
+//key data형식 고려
 
             JsonNode array = objectMapper.readTree(json);
             JsonNode arrayNode = array.get("data");

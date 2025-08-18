@@ -1,4 +1,4 @@
-package com.network.calendar_api;
+package com.network.calendar_api.Config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

@@ -1,12 +1,10 @@
 package com.network.calendar_api.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -22,14 +20,29 @@ public class Event{
 
     private String description;
 
+    private String date;
+
     @CreatedDate
-    private LocalDate time;
+    private LocalDateTime createdAt;
 
-    private LocalDate date;
+    private LocalDateTime updatedAt;
 
-    public Event(String title, String description, LocalDate date) {
+    @Enumerated(EnumType.STRING)
+    private EventType eventType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = " membetLoginID")
+    private Member member;
+
+    public Event(String title, String description, String date) {
         this.title = title;
         this.description = description;
         this.date = date;
+        this.eventType = EventType.PUBLIC;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 }

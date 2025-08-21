@@ -1,9 +1,8 @@
 package com.network.calendar_api.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -11,12 +10,14 @@ public class MyCalenderDto {
     private Integer month;
     private Integer day;
     private Integer year;
-    private List<EventRequestDto> events;
+    private List<EventResponseDto> publicEvents;
+    private List<EventResponseDto> personalEvents;
 
-    public MyCalenderDto(Integer month, Integer day, Integer year, List<EventRequestDto> events) {
+    public MyCalenderDto(Integer month, Integer day, Integer year, List<EventResponseDto> publicEvents, List<EventResponseDto> personalEvents) {
         this.month = month;
         this.day = day;
         this.year = year;
-        this.events = events;
+        this.publicEvents = publicEvents != null ? publicEvents : List.of();
+        this.personalEvents = personalEvents != null ? personalEvents : List.of();
     }
 }

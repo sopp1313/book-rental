@@ -21,11 +21,7 @@ Spring Boot + JPA 기반으로 구현되었으며, **세션 기반 인증**을 �
 | POST   | /api/personal/events     | 일정 추가       | O    |
 | DELETE | /api/personal/events/{id}| 일정 삭제       | O    |
 
-예시 요청
-```json
-POST /api/personal/events
-{
-  "title": "중간고사",
-  "date": "2025-10-01",
-  "description": "수치해석 시험"
-}
+🗺️ Roadmap
+[ ] 검증(@Valid) 정교화
+[ ] JPA N+1 개선(fetch join/EntityGraph) 및 응답 시간 비교
+

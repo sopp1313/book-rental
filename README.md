@@ -9,3 +9,22 @@ Spring Boot + JPA 기반으로 구현되었으며, **세션 기반 인증**을 �
 - JPA/Hibernate (ORM)
 - Session 기반 인증 (Interceptor / Spring Security)
 - Swagger (API 명세)
+
+📑 주요 API
+
+| Method | Endpoint                 | 설명            | Auth |
+|--------|--------------------------|-----------------|------|
+| POST   | /api/auth/login          | 로그인          | X    |
+| POST   | /api/auth/logout         | 로그아웃        | O    |
+| GET    | /api/personal/events     | 일정 조회       | O    |
+| POST   | /api/personal/events     | 일정 추가       | O    |
+| DELETE | /api/personal/events/{id}| 일정 삭제       | O    |
+
+예시 요청
+```json
+POST /api/personal/events
+{
+  "title": "중간고사",
+  "date": "2025-10-01",
+  "description": "수치해석 시험"
+}
